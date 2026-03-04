@@ -13,6 +13,8 @@ import {
   Settings 
 } from 'lucide-react';
 
+import ClassroomsList from '../pages/Classroom/ClassroomsList';
+
 // Mapeamos tus DTOs a opciones visuales del menú
 const MENU_ITEMS = [
   { id: 'students', label: 'Estudiantes', icon: Users, dto: 'StudentDTOs' },
@@ -122,16 +124,24 @@ const DashboardLayout = () => {
             <div className="flex items-center justify-center h-full text-gray-400 flex-col gap-4 mt-20">
               {currentTabInfo && <currentTabInfo.icon className="w-16 h-16 text-gray-300" />}
               <p className="text-lg">
-                Aquí construiremos el CRUD (Tabla y Formularios) para la entidad 
+                {/* Contenedor dinámico donde inyectaremos las tablas/formularios */}
+                <div className="flex-1 overflow-auto p-8 bg-gray-50">
+                  {activeTab === 'classrooms' ? (
+                    <ClassroomsList />
+                  ) : (
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 min-h-[500px] flex items-center justify-center text-gray-400 flex-col gap-4">
+                      {currentTabInfo && <currentTabInfo.icon className="w-16 h-16 text-gray-300" />}
+                      <p className="text-lg">
+                        Pantalla en construcción: <strong className="text-gray-600 ml-1">{currentTabInfo?.label}</strong>.
+                      </p>
+                    </div>
+                  )}
+                </div> 
                 <strong className="text-gray-600 ml-1">{currentTabInfo?.label}</strong>.
               </p>
-              <button className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-md font-medium hover:bg-blue-100 transition-colors">
-                + Crear Nuevo Registro
-              </button>
             </div>
           </div>
         </div>
-
       </main>
     </div>
   );
